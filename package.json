@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "server": "lite-server",
-    "tailwind": "tailwindcss -i style-in.css -o style.css --watch"
+    "tailwind": "tailwindcss -i ./src/style.css -o ./html/style.css --watch"
   },
   "devDependencies": {
     "lite-server": "^2.6.1",

@@ -1,6 +1,8 @@
 {
   "server": {
-    "files": ["./{src}/**/*.{html,htm,css,ts,js}"]
+    "files": ["./{src}/**/*.{html,htm,css,ts,js}"],
+    "baseDir": "./html"
   },
+  "ui": false,
   "notify": false
 }
