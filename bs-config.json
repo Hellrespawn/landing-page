@@ -1,0 +1,6 @@
+{
+  "server": {
+    "files": ["./{src}/**/*.{html,htm,css,ts,js}"]
+  },
+  "notify": false
+}
