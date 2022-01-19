@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/*
+@layer base {
+  body {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, grey 1px, transparent 1px),
+      linear-gradient(to bottom, grey 1px, transparent 1px);
+  }
+
+  body {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, grey 1px, transparent 1px),
+      linear-gradient(to bottom, grey 1px, transparent 1px);
+  }
+} */
+
+@layer components {
+  .prose-full {
+    @apply leading-snug prose-sm prose prose-zinc prose-blue dark:prose-invert;
+  }
+
+  .feather {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+
+  .feather-container {
+    @apply rounded-full w-[32px] h-[32px] bg-blue-700 flex items-center justify-center text-zinc-100 mr-4;
+  }
+
+  .list-item-custom {
+    @apply flex items-center;
+  }
+}
+
+@layer utilities {
+  .darkOnly {
+    display: none;
+  }
+
+  .dark .darkOnly {
+    display: block;
+  }
+
+  .dark .lightOnly {
+    display: none;
+  }
+}

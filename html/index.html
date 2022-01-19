@@ -6,29 +6,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      if (localStorage.darkMode) {
+        const setDarkMode = document.documentElement.classList.toggle('dark');
+      }
+
+      function toggleDarkMode() {
+        const setDarkMode = document.documentElement.classList.toggle('dark');
+        if (setDarkMode) {
+          localStorage.setItem('darkMode', true);
+        } else {
+          localStorage.removeItem('darkMode');
+        }
+      }
+    </script>
+
+    <title>Stef Korporaal</title>
   </head>
   <body
-    class="flex flex-col items-center justify-start w-full max-w-screen-sm min-h-screen sm:justify-center bg-zinc-200 sm:bg-zinc-50"
+    class="flex flex-col items-center justify-start w-full max-w-screen-sm min-h-screen font-sans antialiased sm:justify-center bg-zinc-200 sm:bg-zinc-50 dark:bg-zinc-800 dark:sm:bg-black"
   >
     <!-- box shadow color must also be sm:, otherwise sm:shadow is more specific! -->
     <main
-      class="flex flex-col w-full min-h-screen sm:min-h-0 sm:rounded sm:shadow-md sm:shadow-zinc-400"
+      class="flex flex-col w-full min-h-screen leading-none sm:min-h-0 sm:rounded-2xl sm:shadow-md sm:shadow-zinc-400 dark:sm:shadow-lg dark:sm:shadow-zinc-900"
     >
       <!-- || Header -->
       <div
-        class="w-full p-4 min-h-[12rem] sm:rounded-t bg-gradient-to-tr from-indigo-700 via-blue-800 to-sky-700 text-zinc-100"
+        class="w-full p-4 min-h-[12rem] sm:rounded-t-2xl bg-gradient-to-tr from-indigo-700 via-blue-800 to-sky-700 flex justify-between text-zinc-50"
       >
-        <h1>Stef Korporaal</h1>
-        <h2>Developer-at-Large</h2>
+        <div>
+          <h1 class="mb-8 text-3xl font-bold sm:text-4xl">Stef Korporaal</h1>
+          <h2 class="italic text-zinc-200">Developer-at-Large</h2>
+        </div>
+
+        <div onclick="toggleDarkMode()" id="darkMode">
+          <svg class="darkOnly feather h-[24px] w-[24px]">
+            <use href="./feather-sprite.svg#sun" />
+          </svg>
+          <svg class="lightOnly feather h-[24px] w-[24px]">
+            <use href="./feather-sprite.svg#moon" />
+          </svg>
+        </div>
       </div>
 
       <!-- || About Me -->
-      <div class="w-full p-4 bg-zinc-200 grow">
+      <div class="w-full p-4 bg-zinc-100 dark:bg-zinc-900 grow">
         <!-- To center image, bottom-x is (w-x / 2) + p-x -->
         <!-- to account for padding, -mb-x is bottom-x minus p-x -->
         <div
-          class="relative w-48 mx-auto -mb-24 border-4 rounded-full bottom-28 border-zinc-200 bg-zinc-200"
+          class="relative w-48 ml-auto -mb-32 border-[3px] rounded-full sm:mr-4 bottom-28 border-zinc-100 bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-900"
         >
           <img
             class="block h-full rounded-full grayscale"
@@ -36,7 +70,7 @@
             alt="stef korporaal"
           />
         </div>
-        <section class="mx-auto prose-sm prose prose-zinc prose-blue">
+        <section class="mx-auto prose-full">
           <h2>About Me</h2>
           <p>
             Hello! My name is Stef Korporaal. I am currently a student of
@@ -64,12 +98,52 @@
       </div>
 
       <!-- || Contact -->
-      <div class="w-full p-4 sm:rounded-b bg-zinc-100">
-        <ul>
-          <li>thing 1</li>
-          <li>thing 2</li>
-          <li>thing 3</li>
-        </ul>
+      <div
+        class="w-full p-4 sm:rounded-b-2xl bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+      >
+        <section class="mx-auto">
+          <ul class="flex flex-col gap-2">
+            <li class="list-item-custom">
+              <span class="feather-container">
+                <svg class="feather h-[16px] w-[16px]">
+                  <use href="./feather-sprite.svg#map-pin" />
+                </svg>
+              </span>
+              <a
+                rel="noopener nofollow noreferrer"
+                target="_blank"
+                href="https://www.amsterdamuas.com"
+                >Amsterdam University of Applied Sciences</a
+              >
+            </li>
+            <li class="list-item-custom">
+              <span class="feather-container">
+                <svg class="feather h-[16px] w-[16px]">
+                  <use href="./feather-sprite.svg#github" />
+                </svg>
+              </span>
+              <a
+                rel="noopener nofollow noreferrer"
+                target="_blank"
+                href="https://github.com/Hellrespawn"
+                >Hellrespawn</a
+              >
+            </li>
+            <li class="list-item-custom">
+              <span class="feather-container">
+                <svg class="feather h-[16px] w-[16px]">
+                  <use href="./feather-sprite.svg#mail" />
+                </svg>
+              </span>
+              <a
+                rel="noopener nofollow noreferrer"
+                target="_blank"
+                href="mailto:stef@skorporaal.com"
+                >stef@skorporaal.com</a
+              >
+            </li>
+          </ul>
+        </section>
       </div>
     </main>
   </body>
