@@ -18,7 +18,7 @@
 
 @layer components {
   .prose-full {
-    @apply leading-snug prose-sm prose prose-zinc prose-blue dark:prose-invert;
+    @apply leading-snug prose prose-zinc prose-blue dark:prose-invert;
   }
 
   .feather {
@@ -32,7 +32,7 @@
   }
 
   .feather-container {
-    @apply rounded-full w-[32px] h-[32px] bg-blue-700 flex items-center justify-center text-zinc-100 mr-4;
+    @apply rounded-full w-[32px] h-[32px] bg-blue-700 shrink-0 flex items-center justify-center text-zinc-100 mr-4;
   }
 
   .list-item-custom {
