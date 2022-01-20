@@ -18,7 +18,15 @@
 
 @layer components {
   .prose-full {
-    @apply leading-snug prose prose-zinc prose-blue dark:prose-invert;
+    @apply leading-snug prose prose-neutral prose-blue dark:prose-invert;
+  }
+
+  .contact-item {
+    @apply flex items-center;
+  }
+
+  .feather-container {
+    @apply rounded-full w-[32px] h-[32px] shrink-0 flex items-center justify-center text-gray-100 mr-2 bg-gradient-custom;
   }
 
   .feather {
@@ -29,14 +37,6 @@
     stroke-linecap: round;
     stroke-linejoin: round;
     fill: none;
-  }
-
-  .feather-container {
-    @apply rounded-full w-[32px] h-[32px] bg-blue-700 shrink-0 flex items-center justify-center text-zinc-100 mr-4;
-  }
-
-  .list-item-custom {
-    @apply flex items-center;
   }
 }
 
@@ -51,5 +51,9 @@
 
   .dark .lightOnly {
     display: none;
+  }
+
+  .bg-gradient-custom {
+    @apply bg-gradient-to-tl from-indigo-700 via-blue-800 to-sky-700;
   }
 }

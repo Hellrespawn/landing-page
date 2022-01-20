@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="flex flex-col items-center min-h-full sm:justify-center">
+<html lang="en" class="flex flex-col items-center justify-center min-h-full">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,19 +15,25 @@
     />
 
     <script>
-      if (
-        localStorage.darkMode ||
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-      ) {
-        const setDarkMode = document.documentElement.classList.toggle('dark');
+      const key = 'theme';
+
+      if (localStorage[key]) {
+        if (localStorage[key] === 'dark') {
+          document.documentElement.classList.toggle('dark');
+        }
+      } else {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.toggle('dark');
+        }
       }
 
       function toggleDarkMode() {
         const setDarkMode = document.documentElement.classList.toggle('dark');
+
         if (setDarkMode) {
-          localStorage.setItem('darkMode', true);
+          localStorage[key] = 'dark';
         } else {
-          localStorage.removeItem('darkMode');
+          localStorage[key] = 'light';
         }
       }
     </script>
@@ -35,40 +41,43 @@
     <title>Stef Korporaal</title>
   </head>
   <body
-    class="flex flex-col items-center justify-start w-full max-w-screen-sm min-h-screen font-sans antialiased sm:justify-center bg-zinc-200 sm:bg-zinc-50 dark:bg-zinc-800 dark:sm:bg-black"
+    class="flex flex-col items-center justify-start w-full max-w-[400px] min-h-screen font-sans sm:justify-center bg-gray-100 dark:bg-gray-800 p-2 sm:p-0"
   >
-    <!-- box shadow color must also be sm:, otherwise sm:shadow is more specific! -->
     <main
-      class="flex flex-col w-full min-h-screen leading-none sm:min-h-0 sm:rounded-2xl sm:shadow-md sm:shadow-zinc-400 dark:sm:shadow-lg dark:sm:shadow-zinc-900"
+      class="flex flex-col w-full overflow-hidden leading-none bg-gray-100 rounded shadow-md sm:rounded-2xl shadow-gray-400 dark:shadow-lg dark:shadow-gray-900 dark:bg-gray-900"
     >
       <!-- || Header -->
       <div
-        class="w-full p-4 min-h-[12rem] sm:rounded-t-2xl bg-gradient-to-tr from-indigo-700 via-blue-800 to-sky-700 flex justify-between text-zinc-50"
+        class="[clip-path:polygon(0%_0%,0%_100%,100%_70%,100%_0%)] w-full p-4 min-h-[16rem] flex justify-between text-gray-50 bg-gradient-custom"
       >
         <div>
           <h1 class="mb-8 text-3xl font-bold sm:text-4xl">Stef Korporaal</h1>
-          <h2 class="italic text-zinc-200">Developer-at-Large</h2>
+          <h2 class="italic text-gray-200">Developer-at-Large</h2>
         </div>
 
-        <div onclick="toggleDarkMode()" id="darkMode">
+        <button
+          onclick="toggleDarkMode()"
+          id="darkMode"
+          class="flex flex-col cursor-pointer"
+        >
           <svg class="darkOnly feather h-[24px] w-[24px]">
             <use href="./feather-sprite.svg#sun" />
           </svg>
           <svg class="lightOnly feather h-[24px] w-[24px]">
             <use href="./feather-sprite.svg#moon" />
           </svg>
-        </div>
+        </button>
       </div>
 
       <!-- || About Me -->
-      <div class="w-full p-4 bg-zinc-100 dark:bg-zinc-900 grow">
+      <div class="w-full p-4">
         <!-- To center image, bottom-x is (w-x / 2) + p-x -->
         <!-- to account for padding, -mb-x is bottom-x minus p-x -->
         <div
-          class="relative w-48 ml-auto -mb-32 border-[3px] rounded-full sm:mr-4 bottom-28 border-zinc-100 bg-zinc-100 dark:bg-zinc-900 dark:border-zinc-900"
+          class="relative w-48 ml-auto -mb-48 border-[2px] rounded-full -mr-8 bottom-44 border-gray-100 bg-gray-100 dark:bg-gray-900 dark:border-gray-900"
         >
           <img
-            class="block h-full rounded-full grayscale"
+            class="block h-full rounded-full brightness-125 grayscale dark:brightness-100"
             src="./img/photograph.jpg"
             alt="stef korporaal"
           />
@@ -89,24 +98,23 @@
               target="_blank"
               href="https://www.amsterdamuas.com/faculty/fdmci/faculty-of-digital-media-and-creative-industries.html"
               >Faculty of Digital Media and Creative Industries</a
-            >, the fruits of which you are reading this on.
+            >.
           </p>
           <p>
-            My goal is not just to improve what programming skills I already
-            have, but to learn what programming as part of team is like and to
-            how to contribute to creating a product for someone else instead of
-            just myself.
+            My current goal is not just to improve my programming skills, but
+            learn how to work on a product as part of a team, and make something
+            more than a hobby-project.
           </p>
         </section>
       </div>
 
       <!-- || Contact -->
       <div
-        class="w-full p-4 sm:rounded-b-2xl bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100"
+        class="w-full p-4 text-gray-900 bg-gray-50 dark:bg-gray-800 dark:text-gray-100"
       >
         <section class="mx-auto">
-          <ul class="flex flex-col gap-2">
-            <li class="list-item-custom">
+          <ul class="flex flex-row flex-wrap gap-y-2 gap-x-8">
+            <li class="contact-item">
               <span class="feather-container">
                 <svg class="feather h-[16px] w-[16px]">
                   <use href="./feather-sprite.svg#map-pin" />
@@ -119,7 +127,7 @@
                 >Amsterdam University of Applied Sciences</a
               >
             </li>
-            <li class="list-item-custom">
+            <li class="contact-item">
               <span class="feather-container">
                 <svg class="feather h-[16px] w-[16px]">
                   <use href="./feather-sprite.svg#github" />
@@ -132,7 +140,7 @@
                 >Hellrespawn</a
               >
             </li>
-            <li class="list-item-custom">
+            <li class="contact-item">
               <span class="feather-container">
                 <svg class="feather h-[16px] w-[16px]">
                   <use href="./feather-sprite.svg#mail" />

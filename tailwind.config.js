@@ -1,8 +1,9 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 
 module.exports = {
   content: ['./html/**/*.html', './src/**/*.css'],
-  darkMode: "class",
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -10,7 +11,15 @@ module.exports = {
       },
     },
     screens: {
-      sm: '480px',
+      sm: '560px',
+    },
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      gray: colors.neutral,
+      indigo: colors.indigo,
+      blue: colors.blue,
+      sky: colors.sky,
     },
   },
   plugins: [require('@tailwindcss/typography')],
