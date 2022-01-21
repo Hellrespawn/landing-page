@@ -1,5 +1,7 @@
 # landing-page
 
-## To-do
+## Nice-to-haves
 
-- TODO Dark mode button outline is too large when pressed.
+- TODO? Minify HTML and JS?
+
+## To-do

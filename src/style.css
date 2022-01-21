@@ -6,30 +6,29 @@
   body {
     background-size: 32px 32px;
     background-position: center;
+    background-color: theme(colors.gray.100);
     background-image: linear-gradient(to right, #00000008 1px, transparent 1px),
       linear-gradient(to bottom, #00000008 1px, transparent 1px);
   }
 
   .dark body {
+    background-color: theme(colors.gray.800);
     background-image: linear-gradient(to right, #ffffff07 1px, transparent 1px),
       linear-gradient(to bottom, #ffffff07 1px, transparent 1px);
   }
 }
 
 @layer components {
-  .prose-full {
-    @apply leading-snug prose prose-neutral prose-blue dark:prose-invert;
-  }
-
   .contact-item {
     @apply flex items-center;
   }
 
-  .feather-container {
-    @apply rounded-full w-[32px] h-[32px] shrink-0 flex items-center justify-center text-gray-100 mr-2 bg-gradient-to-br bg-gradient-colors;
+  .icon-circle {
+    @apply rounded-full w-[32px] h-[32px] shrink-0 flex items-center justify-center text-gray-100 mr-2 bg-gradient-to-b bg-gradient-colors;
   }
 
-  .feather {
+  .icon,
+  .icon-circle svg {
     width: 16px;
     height: 16px;
     stroke: currentColor;
@@ -41,19 +40,11 @@
 }
 
 @layer utilities {
-  .darkOnly {
-    display: none;
-  }
-
-  .dark .darkOnly {
-    display: block;
-  }
-
-  .dark .lightOnly {
-    display: none;
-  }
-
   .bg-gradient-colors {
     @apply from-indigo-700 via-blue-800 to-sky-700;
+  }
+
+  .dark .bg-gradient-colors {
+    @apply from-sky-700 via-blue-800 to-indigo-700;
   }
 }

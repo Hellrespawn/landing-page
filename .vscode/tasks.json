@@ -3,25 +3,11 @@
   "tasks": [
     {
       "type": "npm",
-      "script": "tailwind",
+      "script": "dev",
+      "group": "dev",
       "problemMatcher": [],
-      "label": "npm: tailwind",
-      "detail": "tailwindcss -i ./src/style.css -o ./html/style.css --watch",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "type": "npm",
-      "script": "server",
-      "problemMatcher": [],
-      "label": "npm: server",
-      "detail": "lite-server",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
+      "label": "npm: dev",
+      "detail": "run-p server tailwind-watch tsc-watch"
     }
   ]
 }
