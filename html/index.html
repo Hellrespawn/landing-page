@@ -43,30 +43,38 @@
   <body
     class="flex flex-col items-center justify-start w-full max-w-[400px] min-h-screen font-sans sm:justify-center bg-gray-100 dark:bg-gray-800 p-2 sm:p-0"
   >
+    <!-- || Background glow -->
+    <div
+      class="absolute w-screen h-screen opacity-10 dark:opacity-5 bg-gradient-to-tr bg-gradient-colors -z-10"
+    ></div>
+
+    <!-- || Card -->
     <main
       class="flex flex-col w-full overflow-hidden leading-none bg-gray-100 rounded shadow-md sm:rounded-2xl shadow-gray-400 dark:shadow-lg dark:shadow-gray-900 dark:bg-gray-900"
     >
       <!-- || Header -->
       <div
-        class="[clip-path:polygon(0%_0%,0%_100%,100%_70%,100%_0%)] w-full p-4 min-h-[16rem] flex justify-between text-gray-50 bg-gradient-custom"
+        class="[clip-path:polygon(0%_0%,0%_100%,100%_70%,100%_0%)] w-full p-4 min-h-[16rem] flex justify-between text-gray-50 bg-gradient-to-tl bg-gradient-colors"
       >
         <div>
           <h1 class="mb-8 text-3xl font-bold sm:text-4xl">Stef Korporaal</h1>
           <h2 class="italic text-gray-200">Developer-at-Large</h2>
         </div>
 
-        <button
-          onclick="toggleDarkMode()"
-          id="darkMode"
-          class="flex flex-col cursor-pointer"
-        >
-          <svg class="darkOnly feather h-[24px] w-[24px]">
-            <use href="./feather-sprite.svg#sun" />
-          </svg>
-          <svg class="lightOnly feather h-[24px] w-[24px]">
-            <use href="./feather-sprite.svg#moon" />
-          </svg>
-        </button>
+        <div>
+          <button
+            onclick="toggleDarkMode()"
+            id="darkMode"
+            class="cursor-pointer"
+          >
+            <svg class="darkOnly feather h-[24px] w-[24px]">
+              <use href="./feather-sprite.svg#sun" />
+            </svg>
+            <svg class="lightOnly feather h-[24px] w-[24px]">
+              <use href="./feather-sprite.svg#moon" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- || About Me -->
