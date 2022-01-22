@@ -3,50 +3,45 @@ import * as process from 'process';
 import spawn from 'cross-spawn';
 import * as fs from 'fs-extra';
 import * as chokidar from 'chokidar';
-import { minify } from 'html-minifier';
+import * as htmlMinifier from 'html-minifier';
+import * as uglifyJs from 'uglify-js';
 
 const SRC_DIR = __dirname + '/src';
 const BUILD_DIR = __dirname + '/build';
 const STATIC_DIR = __dirname + '/static';
 
+main();
+
 function main(): void {
   const arg = process.argv.slice(2)[0].trim().toLowerCase();
 
   if (arg === 'build') {
-    build();
+    console.log('Building project...');
+    initBuildDir();
+    runBuildCommands();
   } else if (arg === 'dev') {
-    dev();
+    console.log('Starting development server');
+    initBuildDir();
+    runDevCommands();
   } else if (arg === 'clean') {
+    console.log('Cleaning build directory...');
     clean();
   } else {
     throw `Unrecognized argument: ${arg}!`;
   }
 }
 
-async function build(): Promise<void> {
-  console.log('Building project...');
-
-  makeBuildDir();
-  copyStaticFiles();
-
-  runBuildCommands();
-}
-
-async function dev(): Promise<void> {
-  console.log('Starting development server');
-
-  makeBuildDir();
-  copyStaticFiles();
-
-  runDevCommands();
-}
-
-async function clean(): Promise<void> {
-  console.log('Cleaning build directory...');
+function clean(): void {
   fs.removeSync(BUILD_DIR);
 }
 
-function makeBuildDir(): void {
+function initBuildDir(): void {
+  clean();
+  createBuildDir();
+  copyStaticFiles();
+}
+
+function createBuildDir(): void {
   try {
     fs.mkdirSync(BUILD_DIR);
   } catch (rawError) {
@@ -62,45 +57,77 @@ function copyStaticFiles(): void {
 }
 
 function runBuildCommands(): void {
-  console.log('Running tailwind...');
-  spawn.sync('tailwindcss -i ./src/style.css -o ./build/style.css --minify');
   console.log('Running tsc...');
+  buildTypeScript();
+  console.log('Running tailwind...');
+  buildCSS();
+  console.log('Parsing HTML...');
+  buildHTML();
+}
+
+function buildTypeScript(): void {
   spawn.sync('tsc');
-  copyHTML();
+
+  const jsIn = fs.readFileSync(BUILD_DIR + '/app.js').toString();
+
+  const jsOut = uglifyJs.minify(jsIn);
+
+  if (jsOut.error) {
+    throw jsOut.error;
+  }
+
+  fs.writeFile(BUILD_DIR + '/app.js', jsOut.code);
+}
+
+function buildCSS(): void {
+  spawn.sync('tailwindcss -i ./src/style.css -o ./build/style.css --minify');
+}
+
+function buildHTML(depth = 0): void {
+  if (depth > 4) {
+    throw 'buildHTML recursion depth exceeded!';
+  }
+
+  const htmlIn = fs.readFileSync(SRC_DIR + '/index.html', 'utf-8');
+
+  if (htmlIn.length) {
+    const htmlOut = htmlMinifier.minify(htmlIn, {
+      collapseWhitespace: true,
+      conservativeCollapse: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+    });
+
+    fs.writeFileSync(BUILD_DIR + '/index.html', htmlOut);
+  } else {
+    buildHTML(depth + 1);
+  }
 }
 
 function runDevCommands(): void {
-  copyHTML(false);
-  spawn('tsc --watch');
-  spawn('tailwindcss -i ./src/style.css -o ./build/style.css --watch');
+  watchTypeScript();
+  watchCSS();
   watchHTML();
 
   spawn('lite-server');
 }
 
-function copyHTML(minifyHTML = true): void {
-  console.log('Parsing HTML...');
+function watchTypeScript(): void {
+  buildTypeScript();
 
-  const htmlIn = fs.readFileSync(SRC_DIR + '/index.html').toString();
-
-  const htmlOut = minifyHTML
-    ? minify(htmlIn, {
-        collapseWhitespace: true,
-        conservativeCollapse: true,
-        removeComments: true,
-        removeRedundantAttributes: true,
-      })
-    : htmlIn;
-
-  fs.writeFileSync(BUILD_DIR + '/index.html', htmlOut);
-}
-
-function watchHTML(): void {
-  const watcher = chokidar.watch(SRC_DIR + '/index.html');
-  watcher.on('change', (path) => {
-    console.log(`${path} changed...`);
-    copyHTML(false);
+  chokidar.watch(SRC_DIR + '/app.ts').on('change', (_path) => {
+    buildTypeScript();
   });
 }
 
-main();
+function watchCSS(): void {
+  spawn('tailwindcss -i ./src/style.css -o ./build/style.css --minify --watch');
+}
+
+function watchHTML(): void {
+  buildHTML();
+
+  chokidar.watch(SRC_DIR + '/index.html').on('change', (path) => {
+    buildHTML();
+  });
+}
