@@ -1,7 +1,7 @@
 {
   "server": {
-    "files": ["./{src}/**/*.{html,htm,css,ts,js}"],
-    "baseDir": "./html"
+    "files": ["./{build}/**/*"],
+    "baseDir": "./build"
   },
   "ui": false,
   "notify": false

@@ -1,5 +1,3 @@
 # dependencies
 node_modules/
-
-html/style.css
-html/app.js
+build/
