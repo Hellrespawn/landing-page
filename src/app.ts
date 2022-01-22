@@ -51,11 +51,10 @@ function toggleDarkMode(): void {
 function initPhotographHover(): void {
   // TODO? scale might lower quality? Use width, bottom, mb and mr instead?
   // 'w-56', 'bottom-48', '-mb-56'
-  const containerClasses = ['transition-all', 'scale-110'];
-  const photoClasses = ['grayscale-0', 'brightness-100'];
+  const className = 'transition-all';
 
   const durationIn = 'duration-1000';
-  const durationOut = 'duration-200';
+  const durationOut = 'duration-300';
 
   /** Tailwind JIT requires full class names in source code, so we calculate
    * the number from the full class name above. */
@@ -63,33 +62,31 @@ function initPhotographHover(): void {
 
   const container = document.querySelector<HTMLElement>('#photograph')!;
 
-  const photo = container.children[0] as HTMLElement;
+  const photograph = container.children[0] as HTMLElement;
 
   container.onmouseenter = () => {
     // Remove durationOut, if still present.
     container.classList.remove(durationOut);
-    photo.classList.remove(durationOut);
 
     // Add transition classes and duration
-    container.classList.add(...containerClasses, durationIn);
-    photo.classList.add(...photoClasses, durationIn);
+    container.classList.add(className, durationIn);
+    photograph.classList.add(durationIn);
   };
 
   container.onmouseleave = () => {
     // Replace durationIn class with durationOut class
     container.classList.remove(durationIn);
-    photo.classList.remove(durationIn);
+    photograph.classList.remove(durationIn);
     container.classList.add(durationOut);
-    photo.classList.add(durationOut);
+    photograph.classList.add(durationOut);
 
     // After delay (durationOut) millisecondes, remove durationOut class
     setTimeout(() => {
       container.classList.remove(durationOut);
-      photo.classList.remove(durationOut);
+      photograph.classList.remove(durationOut);
     }, delay);
 
     // Remove transition classes
-    container.classList.remove(...containerClasses);
-    photo.classList.remove(...photoClasses);
+    container.classList.remove(className);
   };
 }
