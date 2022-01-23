@@ -4,17 +4,21 @@
 
 @layer base {
   body {
+    --fg-color: #00000008;
     background-size: 32px 32px;
     background-position: center;
     background-color: theme(colors.gray.100);
-    background-image: linear-gradient(to right, #00000008 1px, transparent 1px),
-      linear-gradient(to bottom, #00000008 1px, transparent 1px);
+    background-image: linear-gradient(
+        to right,
+        var(--fg-color) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, var(--fg-color) 1px, transparent 1px);
   }
 
   .dark body {
+    --fg-color: #ffffff07;
     background-color: theme(colors.gray.800);
-    background-image: linear-gradient(to right, #ffffff07 1px, transparent 1px),
-      linear-gradient(to bottom, #ffffff07 1px, transparent 1px);
   }
 }
 
