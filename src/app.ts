@@ -36,6 +36,18 @@ function initDarkModeToggle(): void {
  * Toggles dark mode and saves the current preference.
  */
 function toggleDarkMode(): void {
+  const transition = 'transition-all';
+  const duration = 'duration-100';
+  /** Tailwind JIT requires full class names in source code, so we calculate
+   * the number from durationOutClass. */
+  const delay = parseInt(duration.split('-')[1]);
+
+  const body = document.body;
+  const elems = [body, ...body.querySelectorAll('*')];
+
+  body.classList.add(transition);
+  elems.forEach((e) => e.classList.add(duration));
+
   const setDarkMode = document.documentElement.classList.toggle('dark');
 
   if (setDarkMode) {
@@ -43,50 +55,54 @@ function toggleDarkMode(): void {
   } else {
     localStorage[DARK_MODE_KEY] = 'light';
   }
+
+  setTimeout(() => {
+    elems.forEach((e) => e.classList.remove(duration));
+    body.classList.remove(transition);
+  }, delay);
+}
+
+function initPhotographHover(): void {
+  const div = document.querySelector<HTMLElement>('#photograph')!;
+  initHoverTransition(div, ['transition-all'], 'duration-1000', 'duration-300');
 }
 
 /**
- * Scales up and saturates the photograph
+ * Transitions in and out of hover.
  */
-function initPhotographHover(): void {
-  // TODO? scale might lower quality? Use width, bottom, mb and mr instead?
-  // 'w-56', 'bottom-48', '-mb-56'
-  const className = 'transition-all';
-
-  const durationIn = 'duration-1000';
-  const durationOut = 'duration-300';
-
+function initHoverTransition(
+  rootElement: HTMLElement,
+  classes: string[],
+  durationInClass: string,
+  durationOutClass: string
+): void {
   /** Tailwind JIT requires full class names in source code, so we calculate
-   * the number from the full class name above. */
-  const delay = parseInt(durationOut.split('-')[1]);
+   * the number from durationOutClass. */
+  const delay = parseInt(durationOutClass.split('-')[1]);
 
-  const container = document.querySelector<HTMLElement>('#photograph')!;
+  const elems = [rootElement, ...rootElement.querySelectorAll('*')];
 
-  const photograph = container.children[0] as HTMLElement;
-
-  container.onmouseenter = () => {
+  rootElement.onmouseenter = () => {
     // Remove durationOut, if still present.
-    container.classList.remove(durationOut);
+    elems.forEach((e) => e.classList.remove(durationOutClass));
 
     // Add transition classes and duration
-    container.classList.add(className, durationIn);
-    photograph.classList.add(durationIn);
+    elems.forEach((e) => e.classList.add(durationInClass));
+
+    rootElement.classList.add(...classes);
   };
 
-  container.onmouseleave = () => {
+  rootElement.onmouseleave = () => {
     // Replace durationIn class with durationOut class
-    container.classList.remove(durationIn);
-    photograph.classList.remove(durationIn);
-    container.classList.add(durationOut);
-    photograph.classList.add(durationOut);
+    elems.forEach((e) => e.classList.remove(durationInClass));
+    elems.forEach((e) => e.classList.add(durationOutClass));
 
     // After delay (durationOut) millisecondes, remove durationOut class
     setTimeout(() => {
-      container.classList.remove(durationOut);
-      photograph.classList.remove(durationOut);
+      elems.forEach((e) => e.classList.remove(durationOutClass));
+      rootElement.classList.remove(...classes);
     }, delay);
 
     // Remove transition classes
-    container.classList.remove(className);
   };
 }

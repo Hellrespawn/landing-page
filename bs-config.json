@@ -1,6 +1,6 @@
 {
   "server": {
-    "files": ["./{build,static}/**/*"],
+    "files": ["./static/**/*", "./build/**/*"],
     "baseDir": "./build"
   },
   "ui": false,
