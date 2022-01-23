@@ -38,7 +38,6 @@ function clean(): void {
 function initBuildDir(): void {
   clean();
   createBuildDir();
-  copyStaticFiles();
 }
 
 function createBuildDir(): void {
@@ -56,6 +55,14 @@ function copyStaticFiles(): void {
   fs.copySync(STATIC_DIR, BUILD_DIR);
 }
 
+function watchStaticFiles(): void {
+  copyStaticFiles();
+
+  chokidar.watch(STATIC_DIR + '/**/*').on('all', (_event) => {
+    copyStaticFiles();
+  });
+}
+
 function runBuildCommands(): void {
   console.log('Running tsc...');
   buildTypeScript();
@@ -63,6 +70,8 @@ function runBuildCommands(): void {
   buildCSS();
   console.log('Parsing HTML...');
   buildHTML();
+
+  copyStaticFiles();
 }
 
 function buildTypeScript(): void {
@@ -84,7 +93,7 @@ function buildCSS(): void {
 }
 
 function buildHTML(depth = 0): void {
-  if (depth > 4) {
+  if (depth > 16) {
     throw 'buildHTML recursion depth exceeded!';
   }
 
@@ -104,6 +113,7 @@ function buildHTML(depth = 0): void {
 }
 
 function runDevCommands(): void {
+  watchStaticFiles();
   watchTypeScript();
   watchCSS();
   watchHTML();

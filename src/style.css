@@ -4,27 +4,22 @@
 
 @layer base {
   body {
-    --fg-color: #00000008;
-    background-size: 32px 32px;
-    background-position: center;
+    /* Fill is gray-900, #171717 */
     background-color: theme(colors.gray.100);
-    background-image: linear-gradient(
-        to right,
-        var(--fg-color) 1px,
-        transparent 1px
-      ),
-      linear-gradient(to bottom, var(--fg-color) 1px, transparent 1px);
+    background-position: center;
+    background-image: url('/img/background.svg');
   }
 
   .dark body {
-    --fg-color: #ffffff07;
+    /* Fill is gray-50, #fafafa */
     background-color: theme(colors.gray.800);
+    background-image: url('/img/background-dark.svg');
   }
 }
 
 @layer components {
   .icon-background {
-    @apply rounded-full w-[32px] h-[32px] shrink-0 flex items-center justify-center text-gray-100 mr-2 bg-gradient-to-b bg-gradient-colors hover:transition-all hover:rotate-[360deg] hover:duration-500;
+    @apply rounded-full w-[32px] h-[32px] shrink-0 flex items-center justify-center text-gray-100 mr-2 bg-gradient-to-b bg-gradient-colors;
   }
 
   .icon {
