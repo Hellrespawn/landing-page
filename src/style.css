@@ -19,16 +19,11 @@
 }
 
 @layer components {
-  .contact-item {
-    @apply flex items-center;
+  .icon-background {
+    @apply rounded-full w-[32px] h-[32px] shrink-0 flex items-center justify-center text-gray-100 mr-2 bg-gradient-to-b bg-gradient-colors hover:transition-all hover:rotate-[360deg] hover:duration-500;
   }
 
-  .icon-circle {
-    @apply rounded-full w-[32px] h-[32px] shrink-0 flex items-center justify-center text-gray-100 mr-2 bg-gradient-to-b bg-gradient-colors;
-  }
-
-  .icon,
-  .icon-circle svg {
+  .icon {
     width: 16px;
     height: 16px;
     stroke: currentColor;
@@ -41,10 +36,6 @@
 
 @layer utilities {
   .bg-gradient-colors {
-    @apply from-indigo-700 via-blue-800 to-sky-700;
-  }
-
-  .dark .bg-gradient-colors {
-    @apply from-sky-700 via-blue-800 to-indigo-700;
+    @apply from-indigo-700 dark:from-sky-700 via-blue-800 to-sky-700 dark:to-indigo-700;
   }
 }

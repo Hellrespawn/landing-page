@@ -93,7 +93,6 @@ function buildHTML(depth = 0): void {
   if (htmlIn.length) {
     const htmlOut = htmlMinifier.minify(htmlIn, {
       collapseWhitespace: true,
-      conservativeCollapse: true,
       removeComments: true,
       removeRedundantAttributes: true,
     });
