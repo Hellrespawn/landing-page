@@ -1,6 +1,6 @@
 # landing-page
 
-## To-do
+My current website, while I'm fiddling with static site generators.
 
 ## Ideas
 
