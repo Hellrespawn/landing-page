@@ -37,7 +37,7 @@ function initDarkModeToggle(): void {
  */
 function toggleDarkMode(): void {
   const transition = 'transition-all';
-  const duration = 'duration-100';
+  const duration = 'duration-200';
   /** Tailwind JIT requires full class names in source code, so we calculate
    * the number from durationOutClass. */
   const delay = parseInt(duration.split('-')[1]);
