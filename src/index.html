@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="flex flex-col items-center justify-center min-h-full">
+<html lang="en" class="flex min-h-full flex-col items-center justify-center">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,20 +19,20 @@
   </head>
   <!-- Body -->
   <body
-    class="flex flex-col items-center justify-start w-full min-h-screen p-2 font-sans sm:justify-center sm:p-0"
+    class="flex min-h-screen w-full flex-col items-center justify-start p-2 font-sans sm:justify-center sm:p-0"
   >
     <!-- Background glow -->
     <div
-      class="fixed top-0 w-full h-full opacity-[15%] dark:opacity-20 bg-gradient-to-tr bg-gradient-colors -z-10"
+      class="bg-gradient-colors fixed top-0 -z-10 h-full w-full bg-gradient-to-tr opacity-[15%] dark:opacity-20"
     ></div>
 
     <!-- Card -->
     <main
-      class="flex flex-col w-full max-w-[400px] overflow-hidden leading-none bg-gray-100 rounded shadow-md sm:rounded-2xl shadow-gray-500 dark:shadow-lg dark:shadow-gray-900 dark:bg-gray-900"
+      class="flex w-full max-w-[400px] flex-col overflow-hidden rounded bg-gray-100 leading-none shadow-md shadow-gray-500 dark:bg-gray-900 dark:shadow-lg dark:shadow-gray-900 sm:rounded-2xl"
     >
       <!-- Header -->
       <div
-        class="[clip-path:polygon(0%_0%,0%_100%,100%_70%,100%_0%)] w-full p-4 min-h-[16rem] flex justify-between text-gray-50 bg-gradient-to-tl bg-gradient-colors"
+        class="bg-gradient-colors flex min-h-[16rem] w-full justify-between bg-gradient-to-tl p-4 text-gray-50 [clip-path:polygon(0%_0%,0%_100%,100%_70%,100%_0%)]"
       >
         <!-- Name and Title -->
         <div>
@@ -43,10 +43,10 @@
         <!-- Dark/Light Mode button -->
         <div>
           <button id="darkModeToggle" class="cursor-pointer">
-            <svg class="hidden w-6 h-6 dark:block icon">
+            <svg class="icon hidden h-6 w-6 dark:block">
               <use href="./img/feather-sprite.svg#sun" />
             </svg>
-            <svg class="w-6 h-6 dark:hidden icon">
+            <svg class="icon h-6 w-6 dark:hidden">
               <use href="./img/feather-sprite.svg#moon" />
             </svg>
           </button>
@@ -58,10 +58,10 @@
         <!-- Photograph -->
         <div
           id="photograph"
-          class="relative w-48 ml-auto -mb-48 -mr-8 rounded-full bottom-44"
+          class="relative bottom-44 ml-auto -mb-48 -mr-8 w-48 rounded-full"
         >
           <img
-            class="block h-full rounded-full brightness-125 grayscale dark:brightness-100 hover:grayscale-0 hover:brightness-100"
+            class="block h-full rounded-full brightness-125 grayscale hover:brightness-100 hover:grayscale-0 dark:brightness-100"
             src="./img/photograph.jpg"
             alt="stef korporaal"
           />
@@ -69,7 +69,7 @@
 
         <!-- About Me -->
         <section
-          class="mx-auto leading-snug prose prose-neutral prose-blue dark:prose-invert"
+          class="prose prose-neutral prose-blue mx-auto leading-snug dark:prose-invert"
         >
           <h2>About Me</h2>
           <p>
@@ -98,7 +98,7 @@
 
       <!-- Contact -->
       <div
-        class="w-full p-4 text-gray-900 bg-gray-50 dark:bg-gray-800 dark:text-gray-100"
+        class="w-full bg-gray-50 p-4 text-gray-900 dark:bg-gray-800 dark:text-gray-100"
       >
         <section class="mx-auto">
           <ul class="flex flex-row flex-wrap gap-y-2 gap-x-8">
