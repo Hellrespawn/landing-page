@@ -7,20 +7,6 @@ import browserSyncFactory from 'browser-sync';
 
 const browserSyncInstance = browserSyncFactory.create();
 
-export const build = parallel(staticFiles, css, html, typescript);
-
-export function watch(cb: () => void) {
-  gulpWatch('./static/**/*', { ignoreInitial: false }, staticFiles);
-  gulpWatch('./src/*.{css,html,ts}', { ignoreInitial: false }, css);
-  gulpWatch('./src/*.html', { ignoreInitial: false }, html);
-  gulpWatch('./src/*.ts', { ignoreInitial: false }, typescript);
-  cb();
-}
-
-export const dev = parallel(watch, browserSync);
-
-export default build;
-
 function staticFiles() {
   return src('./static/**/*').pipe(dest('./build'));
 }
@@ -51,7 +37,7 @@ function typescript() {
     .pipe(dest('./build/'));
 }
 
-function browserSync(cb: () => void) {
+async function browserSync() {
   browserSyncInstance.init({
     files: ['./static/**/*', './build/**/*'],
     server: {
@@ -60,5 +46,17 @@ function browserSync(cb: () => void) {
     ui: false,
     notify: false,
   });
-  cb();
 }
+
+export const build = parallel(staticFiles, css, html, typescript);
+
+export async function watch() {
+  gulpWatch('./static/**/*', { ignoreInitial: false }, staticFiles);
+  gulpWatch('./src/*.{css,html,ts}', { ignoreInitial: false }, css);
+  gulpWatch('./src/*.html', { ignoreInitial: false }, html);
+  gulpWatch('./src/*.ts', { ignoreInitial: false }, typescript);
+}
+
+export const dev = parallel(watch, browserSync);
+
+export default build;

@@ -3,10 +3,10 @@ const DARK_MODE_KEY = 'theme';
 // Initialize dark mode before the page is rendered.
 initDarkMode();
 
-window.addEventListener('load', () => {
+window.onload = () => {
   initDarkModeToggle();
   initPhotographHover();
-});
+};
 
 /**
  * Enables dark mode on document.documentElement (<html>), if applicable.
