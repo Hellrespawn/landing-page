@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "clean": "gulp clean",
     "build": "gulp build",
     "watch": "gulp watch",
     "dev": "gulp dev"
@@ -23,6 +24,7 @@
     "autoprefixer": "^10.4.2",
     "browser-sync": "^2.27.7",
     "cssnano": "^5.0.16",
+    "del": "^6.0.0",
     "eslint": "^8.7.0",
     "gulp": "^4.0.2",
     "gulp-htmlmin": "^5.0.1",

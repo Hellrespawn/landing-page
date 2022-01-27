@@ -1,9 +1,10 @@
-import { src, dest, parallel, watch as gulpWatch } from 'gulp';
+import { src, dest, parallel, watch as gulpWatch, series } from 'gulp';
 import postcss from 'gulp-postcss';
 import htmlmin from 'gulp-htmlmin';
 import ts from 'gulp-typescript';
 import uglify from 'gulp-uglify';
 import browserSyncFactory from 'browser-sync';
+import del from 'del';
 
 const browserSyncInstance = browserSyncFactory.create();
 
@@ -47,16 +48,21 @@ async function browserSync() {
     notify: false,
   });
 }
+const buildAll = parallel(staticFiles, css, html, typescript);
 
-export const build = parallel(staticFiles, css, html, typescript);
-
-export async function watch() {
-  gulpWatch('./static/**/*', { ignoreInitial: false }, staticFiles);
-  gulpWatch('./src/*.{css,html,ts}', { ignoreInitial: false }, css);
-  gulpWatch('./src/*.html', { ignoreInitial: false }, html);
-  gulpWatch('./src/*.ts', { ignoreInitial: false }, typescript);
+async function watchAll() {
+  gulpWatch('./static/**/*', staticFiles);
+  gulpWatch('./src/*.{css,html,ts}', css);
+  gulpWatch('./src/*.html', html);
+  gulpWatch('./src/*.ts', typescript);
 }
 
-export const dev = parallel(watch, browserSync);
+export const clean = () => del(['./build/**', './build']);
+
+export const build = series(clean, buildAll);
+
+export const watch = series(clean, buildAll, watchAll);
+
+export const dev = series(clean, buildAll, parallel(watchAll, browserSync));
 
 export default build;
