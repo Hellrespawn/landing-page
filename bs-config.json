@@ -1,8 +1,0 @@
-{
-  "server": {
-    "files": ["./static/**/*", "./build/**/*"],
-    "baseDir": "./build"
-  },
-  "ui": false,
-  "notify": false
-}
