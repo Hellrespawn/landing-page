@@ -3,10 +3,10 @@ import postcss from 'gulp-postcss';
 import htmlmin from 'gulp-htmlmin';
 import ts from 'gulp-typescript';
 import uglify from 'gulp-uglify';
-import browserSyncFactory from 'browser-sync';
+import BrowserSyncStatic from 'browser-sync';
 import del from 'del';
 
-const browserSyncInstance = browserSyncFactory.create();
+const browserSync = BrowserSyncStatic.create();
 
 function staticFiles() {
   return src('./static/**/*').pipe(dest('./build'));
@@ -38,8 +38,8 @@ function typescript() {
     .pipe(dest('./build/'));
 }
 
-async function browserSync() {
-  browserSyncInstance.init({
+async function testServer() {
+  browserSync.init({
     files: ['./static/**/*', './build/**/*'],
     server: {
       baseDir: './build',
@@ -63,6 +63,6 @@ export const build = series(clean, buildAll);
 
 export const watch = series(clean, buildAll, watchAll);
 
-export const dev = series(clean, buildAll, parallel(watchAll, browserSync));
+export const dev = series(clean, buildAll, parallel(watchAll, testServer));
 
 export default build;
